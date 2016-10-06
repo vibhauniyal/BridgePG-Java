@@ -1,10 +1,15 @@
 # BridgePG-Java
 CSC Bridge PG Integration Kit in Java
 
-Instructions:
-*. Reset your password by using the link you have recieved via email.
-*. Supported JRE platforms are JRE 1.7+. Please also make sure that Java installation has unlimited strength jurisdiction policy of Java Cryptography Extension (JCE) installed.
-*. Login to Merchant Center Portal: "portal.csccloud.in" and follow the below steps:
+   Instructions:
+
+     1.Reset your password by using the link you have recieved via email.
+
+     2.Supported JRE platforms are JRE 1.7+. 
+
+     3.Please also make sure that Java installation has unlimited strength jurisdiction policy of Java Cryptography Extension (JCE) installed.
+
+Login to Merchant Center Portal: "portal.csccloud.in" and follow the below steps:
 
       Generate Connect Config. File
         1.Click on “CSC Connect”.
@@ -26,7 +31,7 @@ The illustrated code sample below provides the understanding of using the java i
 
 Step 1	Create an encrypted payment request as in example file. (payment.jsp)
 
-<%
+       <%
             int random_num =  (int)(Math.random() * (100000 - 10000) + 10000 );
             String transactionNo     = "MTXN" + random_num;
             String receiptNo         = "RCPT" + random_num;
@@ -49,12 +54,12 @@ Step 1	Create an encrypted payment request as in example file. (payment.jsp)
             String encText = bg.getEncryptedParameters(bridgePrivateKey, bridgePublicKey);
             String urlFraction = bg.getUrlFraction();
 
-...
+      ...
 
-<form method="post" action="<%= bridgePayAddress + urlFraction %>" >
-     <input type="hidden" name="message" value="<%= merchantId + "|" + encText %>" />
-     <input type="submit" value="Pay" />
-</form>
+      <form method="post" action="<%= bridgePayAddress + urlFraction %>" >
+           <input type="hidden" name="message" value="<%= merchantId + "|" + encText %>" />
+           <input type="submit" value="Pay" />
+      </form>
 
 
 Following is the wrapper for accessing bridge. (BridgePGUtil.jsp)
@@ -129,14 +134,14 @@ Following is the wrapper for accessing bridge. (BridgePGUtil.jsp)
 Step 2	Process pay response to get status of payment as in sample file. (payment_response.jsp)
 
 
-<%
- String enc_vals = request.getParameter("bridgeResponseMessage");
- bridgeutil.BridgeCryptor bg = bridgeutil.BridgeFactory.getBridgeCryptor();
+            <%
+             String enc_vals = request.getParameter("bridgeResponseMessage");
+             bridgeutil.BridgeCryptor bg = bridgeutil.BridgeFactory.getBridgeCryptor();
 
- bg.setKeys(bridgePrivateKey, bridgePublicKey);
+             bg.setKeys(bridgePrivateKey, bridgePublicKey);
 
- String dec_vals = bg.decrypt(enc_vals);
- %>
+             String dec_vals = bg.decrypt(enc_vals);
+             %>
 
 
 
